@@ -8,12 +8,12 @@ from langchain_core.tools import tool
 from langchain_groq import ChatGroq
 from browser_use import Agent as BrowserAgent
 # Import your tool functions
-from actions import go_to_dashboard, go_to_settings, explain_feature
+from actions import go_to_home, go_to_projects, go_to_tools, go_to_achievements, summarize_page
 # browse_with_agent
 import actions
 
 # ✅ Step 1: Define tools list
-tools = [go_to_dashboard, go_to_settings, explain_feature]
+tools = [go_to_home, go_to_projects, go_to_tools, go_to_achievements,summarize_page]
 # tools = [browse_with_agent]
 tools_by_name = {tool.name: tool for tool in tools} 
 

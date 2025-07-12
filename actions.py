@@ -1,39 +1,51 @@
 from langchain_core.tools import tool
 from selenium import webdriver
-from browser_use import Agent as BrowserAgent
-from langchain_groq import ChatGroq
-import asyncio
+from selenium.webdriver.common.by import By
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# 🔧 Existing static setup
+# 🔧 Static setup for browser
 driver = webdriver.Chrome()
-driver.get("https://coreui.io/react/#/dashboard")
+driver.get("https://zehraarshad.vercel.app/")  # 🔁 Replace with your actual website
 
 @tool
-def go_to_dashboard():
-    """Navigate to the dashboard page."""
-    dashboard_button = driver.find_element("id", "dashboard")
-    dashboard_button.click()
-    return "Navigated to Dashboard"
+def go_to_home():
+    """Navigate to the Home page."""
+    link = driver.find_element(By.LINK_TEXT, "Home")
+    link.click()
+    return "Navigated to Home page."
 
 @tool
-def go_to_settings():
-    """Open the settings page."""
-    settings_button = driver.find_element("id", "settings")
-    settings_button.click()
-    return "Opened Settings"
+def go_to_tools():
+    """Navigate to the Tools page."""
+    link = driver.find_element(By.LINK_TEXT, "Tools")
+    link.click()
+    return "Navigated to Tools page."
+
+@tool
+def go_to_achievements():
+    """Navigate to the Achievements page."""
+    link = driver.find_element(By.LINK_TEXT, "Achievements")
+    link.click()
+    return "Navigated to Achievements page."
+
+@tool
+def go_to_projects():
+    """Navigate to the Projects page."""
+    link = driver.find_element(By.LINK_TEXT, "Projects")
+    link.click()
+    return "Navigated to Projects page."
 
 @tool
 def explain_feature():
-    """Explain the current page feature."""
-    return "This is the analytics dashboard showing KPIs in real time."
+    """Explain the current page."""
+    return "This is a portfolio-style page with different sections like Home, Tools, Achievements, and Projects."
 
-# browser_agent = None
-# @tool
-# def browse_with_agent(command: str):
-#     """Use browser AI to follow open-ended instructions like 'search', 'click', 'scroll', 'summarize'."""
-#     if browser_agent is None:
-#         return "❌ Browser agent not initialized."
-#     return asyncio.run(browser_agent.run(command))
+@tool
+def summarize_page():
+    """Summarize the visible content of the current page."""
+    body = driver.find_element(By.TAG_NAME, "body").text
+    # Truncate or clean text as needed
+    return body[:1000]  # Send the first 1000 characters to avoid overload
+    

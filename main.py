@@ -1,6 +1,7 @@
 from speech import start_stream
 from agent import agent
 from langchain_core.messages import HumanMessage
+from speech_utils import speak 
 
 last_transcript = None  # Global memory of last transcript
 
@@ -16,6 +17,7 @@ def handle_transcript(transcript: str):
     result = agent.invoke({"messages": [HumanMessage(content=transcript)]})
     response = result["messages"][-1].content
     print(f"🤖 Agent: {response}")
+    # speak(response)
         
 
 if __name__ == "__main__":
