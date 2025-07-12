@@ -6,13 +6,16 @@ from langgraph.graph import StateGraph, START, END
 from langchain_core.messages import HumanMessage, ToolMessage, SystemMessage
 from langchain_core.tools import tool
 from langchain_groq import ChatGroq
-
+from browser_use import Agent as BrowserAgent
 # Import your tool functions
 from actions import go_to_dashboard, go_to_settings, explain_feature
+# browse_with_agent
+import actions
 
 # ✅ Step 1: Define tools list
 tools = [go_to_dashboard, go_to_settings, explain_feature]
-tools_by_name = {tool.name: tool for tool in tools}
+# tools = [browse_with_agent]
+tools_by_name = {tool.name: tool for tool in tools} 
 
 # ✅ Step 2: Initialize LLM and bind tools
 llm = ChatGroq(
@@ -20,6 +23,8 @@ llm = ChatGroq(
     api_key=os.getenv("GROQ_API_KEY"),
 ).bind_tools(tools)
 
+# browser_agent = BrowserAgent(llm=llm, task="You are a voice-controlled demo agent. Perform user instructions like clicking, scrolling, and explaining what's on the screen.")
+# actions.browser_agent = browser_agent
 # ✅ Step 3: Node functions
 
 def llm_node(state: dict):

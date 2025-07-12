@@ -30,6 +30,10 @@ audio_thread = None
 stop_event = threading.Event()
 
 
+# speech.py
+
+last_sent = None  # top-level, not inside start_stream or any function
+
 def start_stream(on_transcript_callback):
     global audio, stream, ws_app
 
@@ -49,12 +53,20 @@ def start_stream(on_transcript_callback):
         print("🎤 Listening...")
 
     def on_message(ws, message):
+        global last_sent
         try:
             data = json.loads(message)
             if data.get("type") == "Turn":
-                transcript = data.get("transcript", "")
-                if transcript.strip():
-                    on_transcript_callback(transcript)
+                # print(json.dumps(data, indent=2))
+                if data.get("end_of_turn") and data.get("turn_is_formatted"):
+                    transcript = data.get("transcript", "").strip()
+                    print(f"🔍 Checking transcript: '{transcript}' | Last sent: '{last_sent}'")
+                    if transcript and transcript != last_sent:
+                        last_sent = transcript
+                        print(f"✅ Sending transcript to callback: {transcript}")
+                        on_transcript_callback(transcript)
+                    else:
+                        print("🛑 Skipped: empty or duplicate transcript")
         except Exception as e:
             print(f"[Error in on_message]: {e}")
 

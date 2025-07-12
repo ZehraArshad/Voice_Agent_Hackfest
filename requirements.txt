@@ -12,3 +12,5 @@ pyttsx3
 selenium
 langchain-cohere
 langchain-groq
+browser-use
+playwright
