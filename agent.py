@@ -6,7 +6,6 @@ from langgraph.graph import StateGraph, START, END
 from langchain_core.messages import HumanMessage, ToolMessage, SystemMessage
 from langchain_core.tools import tool
 from langchain_groq import ChatGroq
-from browser_use import Agent as BrowserAgent
 # Import your tool functions
 from actions import go_to_home, go_to_projects, go_to_tools, go_to_achievements, summarize_page
 # browse_with_agent

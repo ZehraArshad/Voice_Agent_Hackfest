@@ -2,7 +2,7 @@ from speech import start_stream
 from agent import agent
 from langchain_core.messages import HumanMessage
 from speech_utils import speak 
-
+conversation_log = []
 last_transcript = None  # Global memory of last transcript
 
 def handle_transcript(transcript: str):
@@ -18,8 +18,10 @@ def handle_transcript(transcript: str):
     response = result["messages"][-1].content
     print(f"🤖 Agent: {response}")
     # speak(response)
-        
+    conversation_log.append(("🗣️ You said:", transcript))
+    conversation_log.append(("🤖 Agent:", response))
 
-if __name__ == "__main__":
+def run_voice_agent():
+    
     print("🔊 Voice agent started. Speak your command...")
     start_stream(on_transcript_callback=handle_transcript)

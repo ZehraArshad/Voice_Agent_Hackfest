@@ -6,11 +6,10 @@ python-dotenv
 nest_asyncio
 langchain
 langgraph
-cohere
-openai  
+ 
 pyttsx3
 selenium
 langchain-cohere
 langchain-groq
-browser-use
-playwright
+
+streamlit
