@@ -1,0 +1,14 @@
+websockets==10.4
+pyaudio 
+asyncio 
+requests
+python-dotenv
+nest_asyncio
+langchain
+langgraph
+cohere
+openai  
+pyttsx3
+selenium
+langchain-cohere
+langchain-groq
